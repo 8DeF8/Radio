@@ -14,7 +14,7 @@ class RadioTest {
         int actual = radio.getCurrentStation();
         int expected = 5;
 
-        Assertions.assertEquals(expected,actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -23,6 +23,18 @@ class RadioTest {
 
         radio.setCurrentStation(5);
         radio.setCurrentStation(10);
+        int actual = radio.getCurrentStation();
+        int expected = 5;
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void setCurrentStationOverHightLimit() {
+        Radio radio = new Radio(15);
+
+        radio.setCurrentStation(5);
+        radio.setCurrentStation(15);
         int actual = radio.getCurrentStation();
         int expected = 5;
 
@@ -66,6 +78,19 @@ class RadioTest {
     }
 
     @Test
+    public void nextAfterHightLimit() {
+        Radio radio = new Radio(15);
+
+        radio.setCurrentStation(14);
+        radio.next();
+        int actual = radio.getCurrentStation();
+        int expected = 0;
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+    @Test
     public void prevRegular() {
         Radio radio = new Radio();
 
@@ -88,7 +113,17 @@ class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void prevBelowZeroHightLimit() {
+        Radio radio = new Radio(15);
 
+        radio.setCurrentStation(0);
+        radio.prev();
+        int actual = radio.getCurrentStation();
+        int expected = 14;
+
+        Assertions.assertEquals(expected, actual);
+    }
     @Test
     public void setVolume() {
         Radio radio = new Radio();
